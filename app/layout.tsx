@@ -7,28 +7,28 @@ import { ACCESS_CODES, IS_IN_DOCKER } from "./api/access";
 
 let COMMIT_ID: string | undefined;
 try {
-  COMMIT_ID = process
-    .execSync("git rev-parse --short HEAD")
-    .toString()
-    .trim();
+  COMMIT_ID = process.execSync("git rev-parse --short HEAD").toString().trim();
 } catch (e) {
-  console.error("No git or not from git repo.")
+  console.error("No git or not from git repo.");
 }
 
 export const metadata = {
-  title: "ChatGPT Next Web",
-  description: "Your personal ChatGPT Chat Bot.",
+  title: "AI Connect World",
+  description:
+    "AI中文智能对话 ChatGPT免费体验,ChatGPT在线体验,ChatGPT官网地址,ChatGPT免登录,ChatGPT免注册,与Ai对话,ChatGPT和本网站都是基于open ai实现的",
+  keywords:
+    "ChatGPT,人工智能ChatGPT,聊天机器人ChatGPT,ChatGPT免费,ChatGPT在线体验,ChatGPT官网,ChatGPT登录,ChatGPT注册,ChatGPT地址,AI Chat",
   appleWebApp: {
-    title: "ChatGPT Next Web",
+    title: "AI Connect World",
     statusBarStyle: "black-translucent",
   },
-  themeColor: "#fafafa"
+  themeColor: "#fafafa",
 };
 
 function Meta() {
   const metas = {
     version: COMMIT_ID ?? "unknown",
-    access: (ACCESS_CODES.size > 0 || IS_IN_DOCKER) ? "enabled" : "disabled",
+    access: ACCESS_CODES.size > 0 || IS_IN_DOCKER ? "enabled" : "disabled",
   };
 
   return (

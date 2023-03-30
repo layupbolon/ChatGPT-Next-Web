@@ -1,0 +1,79 @@
+@mixin container {
+  // background-color: var(--white);
+  // border: var(--border-in-light);
+  // border-radius: 20px;
+  box-shadow: var(--shadow);
+  color: var(--black);
+  // background-color: var(--white);
+  height: 480px;
+  width: 520px;
+
+  display: flex;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.container {
+  @include container();
+  flex-direction: column;
+  align-items: center;
+}
+
+// @media only screen and (min-width: 600px) {
+//   .tight-container {
+//     --window-width: 100vw;
+//     --window-height: 100vh;
+//     --window-content-width: calc(100% - var(--sidebar-width));
+
+//     @include container();
+
+//     max-width: 100vw;
+//     max-height: 100vh;
+
+//     border-radius: 0;
+//   }
+// }
+
+.title {
+  margin-bottom: 33px;
+}
+
+.login-container {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    max-width: unset;
+    height: 50px;
+  }
+
+  input[type="password"] {
+    margin-top: 20px;
+  }
+
+  a {
+    align-self: flex-end;
+    margin-top: 21px;
+    text-decoration: none;
+    font-size: 14px;
+    color: var(--primary);
+  }
+
+  button {
+    width: 70%;
+    height: 50px;
+    border-radius: 18px;
+    border: var(--border-in-light);
+    background-color: var(--primary);
+    font-size: 17px;
+    margin-top: 21px;
+
+    &:hover{
+      border: var(--primary);
+    }
+  }
+}
