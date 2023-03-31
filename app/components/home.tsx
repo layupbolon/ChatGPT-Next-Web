@@ -20,6 +20,7 @@ import MenuIcon from "../icons/menu.svg";
 import CloseIcon from "../icons/close.svg";
 import CopyIcon from "../icons/copy.svg";
 import DownloadIcon from "../icons/download.svg";
+import PaymentIcon from "../icons/payment.svg";
 
 import { Message, SubmitKey, useChatStore, ChatSession } from "../store";
 import { showModal, showToast } from "./ui-lib";
@@ -375,7 +376,7 @@ export function Chat(props: {
               onClick={props?.showSideBar}
             />
           </div>
-          <div className={styles["window-action-button"]}>
+          {/* <div className={styles["window-action-button"]}>
             <IconButton
               icon={<BrainIcon />}
               bordered
@@ -384,7 +385,8 @@ export function Chat(props: {
                 showMemoryPrompt(session);
               }}
             />
-          </div>
+          </div> */}
+
           <div className={styles["window-action-button"]}>
             <IconButton
               icon={<ExportIcon />}
@@ -392,6 +394,17 @@ export function Chat(props: {
               title={Locale.Chat.Actions.Export}
               onClick={() => {
                 exportMessages(session.messages, session.topic);
+              }}
+            />
+          </div>
+          <div className={styles["window-action-button"]}>
+            <IconButton
+              className="no-dark"
+              icon={<PaymentIcon />}
+              bordered
+              title={Locale.Chat.Actions.CompressedHistory}
+              onClick={() => {
+                showPayment();
               }}
             />
           </div>
@@ -585,6 +598,68 @@ function showMemoryPrompt(session: ChatSession) {
   });
 }
 
+const Payment = () => {
+  const [packageNumber, setPackageNumber] = useState<number>(1);
+  return (
+    <div className="markdown-body">
+      <div className={styles["payment-wrapper"]}>
+        <div
+          className={`${styles["payment-item"]} ${styles["discount"]} ${
+            packageNumber === 1 ? styles["selected"] : ""
+          }`}
+          onClick={() => {
+            setPackageNumber(1);
+          }}
+        >
+          <span className={styles["package-name"]}>一个月VIP</span>
+          <span className={styles["package-price"]}>
+            ￥<b>59</b>
+          </span>
+          <del>原价 ￥69</del>
+        </div>
+        <div
+          className={`${styles["payment-item"]} ${
+            packageNumber === 2 ? styles["selected"] : ""
+          }`}
+          onClick={() => {
+            setPackageNumber(2);
+          }}
+        >
+          <span className={styles["package-name"]}>三个月VIP</span>
+          <span className={styles["package-price"]}>
+            ￥<b>89</b>
+          </span>
+          <del>原价 ￥128</del>
+        </div>
+        <div
+          className={`${styles["payment-item"]} ${styles["recommend"]} ${
+            packageNumber === 3 ? styles["selected"] : ""
+          }`}
+          onClick={() => {
+            setPackageNumber(3);
+          }}
+        >
+          <span className={styles["package-name"]}>一年VIP</span>
+          <span className={styles["package-price"]}>
+            ￥<b>169</b>
+          </span>
+          <del>原价 ￥288</del>
+        </div>
+      </div>
+      <button className={styles["payment-btn"]} disabled>
+        立即支付
+      </button>
+    </div>
+  );
+};
+
+function showPayment() {
+  showModal({
+    title: `成为会员`,
+    children: <Payment />,
+  });
+}
+
 const useHasHydrated = () => {
   const [hasHydrated, setHasHydrated] = useState<boolean>(false);
 
@@ -679,11 +754,11 @@ export function Home() {
                 }}
               />
             </div>
-            <div className={styles["sidebar-action"]}>
+            {/* <div className={styles["sidebar-action"]}>
               <a href={REPO_URL} target="_blank">
                 <IconButton icon={<GithubIcon />} />
               </a>
-            </div>
+            </div> */}
           </div>
           <div>
             <IconButton

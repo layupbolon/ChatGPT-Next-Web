@@ -61,4 +61,9 @@
       border: var(--primary);
     }
   }
+
+  button[disabled] {
+    color: rgba(0, 0, 0, 0.2);
+    cursor: not-allowed;
+  }
 }

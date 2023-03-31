@@ -73,6 +73,11 @@
     }
   }
 
+  button[disabled] {
+    color: rgba(0, 0, 0, 0.2);
+    cursor: not-allowed;
+  }
+
   button[type="submit"] {
     width: 70%;
     border-radius: 18px;
@@ -94,6 +99,7 @@
   }
 
   button[type="button"] {
+    height: 48px;
     width: 100px;
     margin-left: 20px;
     border-radius: 8px;
