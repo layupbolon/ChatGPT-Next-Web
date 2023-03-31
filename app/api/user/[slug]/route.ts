@@ -1,7 +1,6 @@
 import { NextRequest } from "next/server";
 
-export async function POST(req: NextRequest, { params }) {
-  console.log("params: ", params);
+export async function POST(req: NextRequest, { params }: any) {
   try {
     const res = await fetch(`http://45.32.94.79:8080/v1/user/${params.slug}`, {
       headers: {
