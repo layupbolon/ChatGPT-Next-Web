@@ -48,7 +48,10 @@ function SettingItem(props: {
   );
 }
 
-export function Settings(props: { closeSettings: () => void; user: UserInfo }) {
+export function Settings(props: {
+  closeSettings: () => void;
+  user?: UserInfo;
+}) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [config, updateConfig, resetConfig, clearAllData] = useChatStore(
     (state) => [
@@ -147,7 +150,7 @@ export function Settings(props: { closeSettings: () => void; user: UserInfo }) {
       <div className={styles["settings"]}>
         <List>
           <SettingItem title={Locale.Settings.Account}>
-            <span style={{ fontSize: 14 }}>{props.user.account}</span>
+            <span style={{ fontSize: 14 }}>{props.user?.account ?? ""}</span>
           </SettingItem>
           <SettingItem title={Locale.Settings.Avatar}>
             <Popover

@@ -21,6 +21,8 @@ import CloseIcon from "../icons/close.svg";
 import CopyIcon from "../icons/copy.svg";
 import DownloadIcon from "../icons/download.svg";
 import PaymentIcon from "../icons/payment.svg";
+import QrcodeIcon from "../icons/qrcode.svg";
+import wechatgroup from "../icons/wechatgroup.jpeg";
 
 import { Message, SubmitKey, useChatStore, ChatSession } from "../store";
 import { showModal, showToast } from "./ui-lib";
@@ -38,6 +40,7 @@ import { REPO_URL } from "../constant";
 import { ControllerPool } from "../requests";
 import { Prompt, usePromptStore } from "../store/prompt";
 import type { UserInfo } from "../aigc-typings";
+import Image from "next/image";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -700,7 +703,7 @@ export function Home() {
       location.href = "/login";
     }
   };
-  const user = checkLogin();
+  // const user = checkLogin();
 
   return (
     <div
@@ -759,6 +762,33 @@ export function Home() {
                 <IconButton icon={<GithubIcon />} />
               </a>
             </div> */}
+            <div className={styles["sidebar-action"]}>
+              <IconButton
+                icon={<QrcodeIcon />}
+                onClick={() => {
+                  showModal({
+                    title: "加入群聊",
+                    children: (
+                      <div
+                        className="markdown-body"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Image
+                          src={wechatgroup}
+                          width={320}
+                          height={420}
+                          alt="wechat-group"
+                        ></Image>
+                      </div>
+                    ),
+                  });
+                }}
+              />
+            </div>
           </div>
           <div>
             <IconButton
@@ -780,7 +810,7 @@ export function Home() {
               setOpenSettings(false);
               setShowSideBar(true);
             }}
-            user={user!}
+            // user={user!}
           />
         ) : (
           <Chat
