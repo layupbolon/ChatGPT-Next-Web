@@ -1,3 +1,4 @@
+import type { BaseResponse, LoginResult } from "./aigc-typings";
 async function fetchImpl(url: string, body: Record<string, unknown>) {
   const res = await fetch(url, {
     method: "POST",
@@ -12,7 +13,10 @@ async function fetchImpl(url: string, body: Record<string, unknown>) {
   return Promise.resolve(res.json());
 }
 
-export async function login(account: string, password: string) {
+export async function login(
+  account: string,
+  password: string,
+): Promise<BaseResponse<LoginResult>> {
   return fetchImpl("/api/user/login", { account, password });
 }
 

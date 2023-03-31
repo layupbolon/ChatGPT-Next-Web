@@ -28,6 +28,7 @@ import Link from "next/link";
 import { UPDATE_URL } from "../constant";
 import { SearchService, usePromptStore } from "../store/prompt";
 import { requestUsage } from "../requests";
+import { UserInfo } from "../aigc-typings";
 
 function SettingItem(props: {
   title: string;
@@ -47,7 +48,7 @@ function SettingItem(props: {
   );
 }
 
-export function Settings(props: { closeSettings: () => void }) {
+export function Settings(props: { closeSettings: () => void; user: UserInfo }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [config, updateConfig, resetConfig, clearAllData] = useChatStore(
     (state) => [
@@ -145,6 +146,9 @@ export function Settings(props: { closeSettings: () => void }) {
       </div>
       <div className={styles["settings"]}>
         <List>
+          <SettingItem title={Locale.Settings.Account}>
+            <span style={{ fontSize: 14 }}>{props.user.account}</span>
+          </SettingItem>
           <SettingItem title={Locale.Settings.Avatar}>
             <Popover
               onClose={() => setShowEmojiPicker(false)}

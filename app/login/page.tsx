@@ -18,8 +18,16 @@ const Login: React.FC<Props> = ({}) => {
 
   const handleLogin = useCallback(() => {
     login(account!, pwd!).then((res) => {
-      showToast("登录成功");
-      router.replace("/");
+      if (+res.code === 1) {
+        showToast("登录成功");
+        localStorage.setItem(
+          "aiconnectworld-userinfo",
+          JSON.stringify(res.result),
+        );
+        router.replace("/");
+      } else {
+        showToast(`登录失败，${res.message}`);
+      }
     });
   }, [account, pwd, router]);
 

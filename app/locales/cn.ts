@@ -44,6 +44,7 @@ const cn = {
     DeleteChat: "确认删除选中的对话？",
   },
   Settings: {
+    Account: "账号",
     Title: "设置",
     SubTitle: "设置选项",
     Actions: {
