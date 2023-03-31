@@ -45,6 +45,7 @@ const tw: LocaleType = {
     DeleteChat: "確定要刪除選取的對話嗎？",
   },
   Settings: {
+    Account: "帳號",
     Title: "設定",
     SubTitle: "設定選項",
     Actions: {

@@ -46,6 +46,7 @@ const es: LocaleType = {
     DeleteChat: "¿Confirmar eliminación de la conversación seleccionada?",
   },
   Settings: {
+    Account: "Cuenta",
     Title: "Configuración",
     SubTitle: "Todas las configuraciones",
     Actions: {
@@ -143,11 +144,13 @@ const es: LocaleType = {
       Summarize:
         "Resuma nuestra discusión brevemente en 50 caracteres o menos para usarlo como un recordatorio para futuros contextos.",
     },
-    ConfirmClearAll: "¿Confirmar para borrar todos los datos de chat y configuración?",
+    ConfirmClearAll:
+      "¿Confirmar para borrar todos los datos de chat y configuración?",
   },
   Copy: {
     Success: "Copiado al portapapeles",
-    Failed: "La copia falló, por favor concede permiso para acceder al portapapeles",
+    Failed:
+      "La copia falló, por favor concede permiso para acceder al portapapeles",
   },
 };
 

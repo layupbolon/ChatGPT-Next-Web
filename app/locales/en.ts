@@ -46,6 +46,7 @@ const en: LocaleType = {
     DeleteChat: "Confirm to delete the selected conversation?",
   },
   Settings: {
+    Account: "Account",
     Title: "Settings",
     SubTitle: "All Settings",
     Actions: {

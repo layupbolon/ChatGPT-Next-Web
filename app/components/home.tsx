@@ -36,7 +36,7 @@ import dynamic from "next/dynamic";
 import { REPO_URL } from "../constant";
 import { ControllerPool } from "../requests";
 import { Prompt, usePromptStore } from "../store/prompt";
-import { UserInfo } from "../aigc-typings";
+import type { UserInfo } from "../aigc-typings";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -595,18 +595,7 @@ const useHasHydrated = () => {
   return hasHydrated;
 };
 
-const checkLogin = () => {
-  // todo 验证 token 有效性
-  try {
-    return JSON.parse(localStorage.getItem("aiconnectworld-userinfo") ?? "")
-      .user as UserInfo;
-  } catch {
-    window.location.href = "/login";
-  }
-};
-
 export function Home() {
-  const user = checkLogin();
   const [createNewSession, currentIndex, removeSession] = useChatStore(
     (state) => [
       state.newSession,
@@ -626,6 +615,17 @@ export function Home() {
   if (loading) {
     return <Loading />;
   }
+
+  const checkLogin = () => {
+    // todo 验证 token 有效性
+    try {
+      return JSON.parse(localStorage.getItem("aiconnectworld-userinfo") ?? "")
+        .user as UserInfo;
+    } catch {
+      location.href = "/login";
+    }
+  };
+  const user = checkLogin();
 
   return (
     <div
