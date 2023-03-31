@@ -173,7 +173,7 @@ export function Settings(props: { closeSettings: () => void; user: UserInfo }) {
             </Popover>
           </SettingItem>
 
-          <SettingItem
+          {/* <SettingItem
             title={Locale.Settings.Update.Version(currentId)}
             subTitle={
               checkingUpdate
@@ -196,7 +196,7 @@ export function Settings(props: { closeSettings: () => void; user: UserInfo }) {
                 onClick={() => checkUpdate(true)}
               />
             )}
-          </SettingItem>
+          </SettingItem> */}
 
           <SettingItem title={Locale.Settings.SendKey}>
             <select
@@ -347,7 +347,7 @@ export function Settings(props: { closeSettings: () => void; user: UserInfo }) {
             ></input>
           </SettingItem>
 
-          <SettingItem
+          {/* <SettingItem
             title={Locale.Settings.Usage.Title}
             subTitle={
               loadingUsage
@@ -367,7 +367,7 @@ export function Settings(props: { closeSettings: () => void; user: UserInfo }) {
                 onClick={checkUsage}
               />
             )}
-          </SettingItem>
+          </SettingItem> */}
 
           <SettingItem
             title={Locale.Settings.HistoryCount.Title}
