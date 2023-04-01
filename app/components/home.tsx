@@ -126,7 +126,7 @@ export function ChatList() {
           key={i}
           selected={i === selectedIndex}
           onClick={() => selectSession(i)}
-          onDelete={() => removeSession(i)}
+          onDelete={() => confirm(Locale.Home.DeleteChat) && removeSession(i)}
         />
       ))}
     </div>
