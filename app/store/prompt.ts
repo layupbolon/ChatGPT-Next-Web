@@ -92,26 +92,29 @@ export const usePromptStore = create<PromptStore>()(
         fetch(PROMPT_URL)
           .then((res) => res.json())
           .then((res) => {
-            const builtinPrompts = [res.en, res.cn]
+            const builtinPrompts = [
+              // res.en,
+              res.cn,
+            ]
               .map((promptList: PromptList) => {
                 return promptList.map(
                   ([title, content]) =>
                     ({
                       title,
                       content,
-                    } as Prompt)
+                    } as Prompt),
                 );
               })
               .concat([...(state?.prompts?.values() ?? [])]);
 
             const allPromptsForSearch = builtinPrompts.reduce(
               (pre, cur) => pre.concat(cur),
-              []
+              [],
             );
-            SearchService.count.builtin = res.en.length + res.cn.length;
+            SearchService.count.builtin = res.cn.length; //+ res.en.length;
             SearchService.init(allPromptsForSearch);
           });
       },
-    }
-  )
+    },
+  ),
 );

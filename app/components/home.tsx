@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useLayoutEffect } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import { Analytics } from "@vercel/analytics/react";
 
 import { IconButton } from "./button";
 import styles from "./home.module.scss";
@@ -706,120 +707,125 @@ export function Home() {
   // const user = checkLogin();
 
   return (
-    <div
-      className={`${
-        config.tightBorder && !isMobileScreen()
-          ? styles["tight-container"]
-          : styles.container
-      }`}
-    >
+    <>
       <div
-        className={styles.sidebar + ` ${showSideBar && styles["sidebar-show"]}`}
+        className={`${
+          config.tightBorder && !isMobileScreen()
+            ? styles["tight-container"]
+            : styles.container
+        }`}
       >
-        <div className={styles["sidebar-header"]}>
-          <div className={styles["sidebar-title"]}>AI Connect World</div>
-          <div className={styles["sidebar-sub-title"]}>
-            Build your own AI assistant.
-          </div>
-          <div className={styles["sidebar-logo"]}>
-            <ChatGptIcon />
-          </div>
-        </div>
-
         <div
-          className={styles["sidebar-body"]}
-          onClick={() => {
-            setOpenSettings(false);
-            setShowSideBar(false);
-          }}
+          className={
+            styles.sidebar + ` ${showSideBar && styles["sidebar-show"]}`
+          }
         >
-          <ChatList />
-        </div>
+          <div className={styles["sidebar-header"]}>
+            <div className={styles["sidebar-title"]}>AI Connect World</div>
+            <div className={styles["sidebar-sub-title"]}>
+              Build your own AI assistant.
+            </div>
+            <div className={styles["sidebar-logo"]}>
+              <ChatGptIcon />
+            </div>
+          </div>
 
-        <div className={styles["sidebar-tail"]}>
-          <div className={styles["sidebar-actions"]}>
-            <div className={styles["sidebar-action"] + " " + styles.mobile}>
-              <IconButton
-                icon={<CloseIcon />}
-                onClick={() => {
-                  if (confirm(Locale.Home.DeleteChat)) {
-                    removeSession(currentIndex);
-                  }
-                }}
-              />
-            </div>
-            <div className={styles["sidebar-action"]}>
-              <IconButton
-                icon={<SettingsIcon />}
-                onClick={() => {
-                  setOpenSettings(true);
-                  setShowSideBar(false);
-                }}
-              />
-            </div>
-            {/* <div className={styles["sidebar-action"]}>
+          <div
+            className={styles["sidebar-body"]}
+            onClick={() => {
+              setOpenSettings(false);
+              setShowSideBar(false);
+            }}
+          >
+            <ChatList />
+          </div>
+
+          <div className={styles["sidebar-tail"]}>
+            <div className={styles["sidebar-actions"]}>
+              <div className={styles["sidebar-action"] + " " + styles.mobile}>
+                <IconButton
+                  icon={<CloseIcon />}
+                  onClick={() => {
+                    if (confirm(Locale.Home.DeleteChat)) {
+                      removeSession(currentIndex);
+                    }
+                  }}
+                />
+              </div>
+              <div className={styles["sidebar-action"]}>
+                <IconButton
+                  icon={<SettingsIcon />}
+                  onClick={() => {
+                    setOpenSettings(true);
+                    setShowSideBar(false);
+                  }}
+                />
+              </div>
+              {/* <div className={styles["sidebar-action"]}>
               <a href={REPO_URL} target="_blank">
                 <IconButton icon={<GithubIcon />} />
               </a>
             </div> */}
-            <div className={styles["sidebar-action"]}>
+              <div className={styles["sidebar-action"]}>
+                <IconButton
+                  icon={<QrcodeIcon />}
+                  onClick={() => {
+                    showModal({
+                      title: "加入群聊",
+                      children: (
+                        <div
+                          className="markdown-body"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Image
+                            src={wechatgroup}
+                            width={320}
+                            height={420}
+                            alt="wechat-group"
+                          ></Image>
+                        </div>
+                      ),
+                    });
+                  }}
+                />
+              </div>
+            </div>
+            <div>
               <IconButton
-                icon={<QrcodeIcon />}
+                icon={<AddIcon />}
+                text={Locale.Home.NewChat}
                 onClick={() => {
-                  showModal({
-                    title: "加入群聊",
-                    children: (
-                      <div
-                        className="markdown-body"
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Image
-                          src={wechatgroup}
-                          width={320}
-                          height={420}
-                          alt="wechat-group"
-                        ></Image>
-                      </div>
-                    ),
-                  });
+                  createNewSession();
+                  setShowSideBar(false);
                 }}
               />
             </div>
           </div>
-          <div>
-            <IconButton
-              icon={<AddIcon />}
-              text={Locale.Home.NewChat}
-              onClick={() => {
-                createNewSession();
-                setShowSideBar(false);
+        </div>
+
+        <div className={styles["window-content"]}>
+          {openSettings ? (
+            <Settings
+              closeSettings={() => {
+                setOpenSettings(false);
+                setShowSideBar(true);
               }}
+              // user={user!}
             />
-          </div>
+          ) : (
+            <Chat
+              key="chat"
+              showSideBar={() => setShowSideBar(true)}
+              sideBarShowing={showSideBar}
+            />
+          )}
         </div>
       </div>
-
-      <div className={styles["window-content"]}>
-        {openSettings ? (
-          <Settings
-            closeSettings={() => {
-              setOpenSettings(false);
-              setShowSideBar(true);
-            }}
-            // user={user!}
-          />
-        ) : (
-          <Chat
-            key="chat"
-            showSideBar={() => setShowSideBar(true)}
-            sideBarShowing={showSideBar}
-          />
-        )}
-      </div>
-    </div>
+      <Analytics />
+    </>
   );
 }

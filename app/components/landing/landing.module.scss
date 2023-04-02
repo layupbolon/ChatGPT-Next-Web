@@ -1,0 +1,119 @@
+$aaa: 60vw;
+
+@mixin vars {
+  --header-height: 100px;
+}
+
+.container {
+  @include vars();
+
+  position: relative;
+  display: flex;
+  overflow: auto;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding-top: var(--header-height);
+
+
+}
+
+@media screen and (min-width: 300px) and (max-width: 999px) {
+  .header{
+    width: 100vw !important;
+  }
+  .content{
+    width: 100vw !important;
+  }
+  .cover{
+    width: 100vw !important;
+    height: 280px;
+  }
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("./landing-bg.jpg") no-repeat 0 0;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  width: $aaa;
+  box-sizing: border-box;
+  height: var(--header-height);
+  background-color: transparent;
+  font-size: 15px;
+
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+
+  svg {
+    stroke: rgb(175, 200, 205);
+  }
+
+  h1 {
+    font-size: 24px;
+    color: #fff;
+    margin-left: 16px;
+  }
+
+  button {
+    width: 115px;
+    height: 50px;
+    border-radius: 18px;
+    border: var(--border-in-light);
+    background-color: var(--primary);
+    font-size: 17px;
+
+    &:hover {
+      border: var(--primary);
+    }
+
+    &:active {
+      opacity: 0.8;
+    }
+  }
+}
+
+.content {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  width: $aaa;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  // justify-content: space-between;
+  padding: 0 12px;
+  z-index: 1;
+}
+
+.cover {
+  height: 460px;
+  width: $aaa;
+  background: url("../../../static/cover.png") no-repeat 0 0;
+  background-size: cover;
+  background-position: center;
+}

@@ -19,7 +19,7 @@ try {
 export const metadata = {
   title: "AI Connect World",
   description:
-    "AI中文智能对话 ChatGPT免费体验,ChatGPT在线体验,ChatGPT官网地址,ChatGPT免登录,ChatGPT免注册,与Ai对话,ChatGPT和本网站都是基于open ai实现的",
+    "ChatGPT国内版,AI中文智能对话,ChatGPT免费体验,ChatGPT免登录,ChatGPT免注册,与Ai对话",
   keywords:
     "ChatGPT,人工智能ChatGPT,聊天机器人ChatGPT,ChatGPT免费,ChatGPT在线体验,ChatGPT官网,ChatGPT登录,ChatGPT注册,ChatGPT地址,AI Chat",
   appleWebApp: {
