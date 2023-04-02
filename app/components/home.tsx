@@ -406,8 +406,8 @@ export function Chat(props: {
             <IconButton
               className="no-dark"
               icon={<PaymentIcon />}
+              text="会员"
               bordered
-              title={Locale.Chat.Actions.CompressedHistory}
               onClick={() => {
                 showPayment();
               }}
@@ -767,9 +767,10 @@ export function Home() {
                 <IconButton icon={<GithubIcon />} />
               </a>
             </div> */}
-            <div className={styles["sidebar-action"]}>
+            <div>
               <IconButton
                 icon={<QrcodeIcon />}
+                text="加入群聊"
                 onClick={() => {
                   showModal({
                     title: "加入群聊",

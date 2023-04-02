@@ -3,12 +3,15 @@
 import * as React from "react";
 import styles from "./landing.module.scss";
 import ChatGPTIcon from "../../icons/chatgpt.svg";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export const Landing = () => {
+  const router = useRouter();
+
   React.useEffect(() => {
     window.localStorage.setItem("aiconnectworld-landing", "true");
   }, []);
+
   return (
     <div className={styles["container"]}>
       <div className={styles.bg}></div>
@@ -18,8 +21,14 @@ export const Landing = () => {
           <h1>ChatGPT 国内版</h1>
         </span>
 
-        {/* <button type="button"></button> */}
-        <Link href="/chat">立即使用</Link>
+        <button
+          type="button"
+          onClick={() => {
+            router.push("/chat");
+          }}
+        >
+          立即使用
+        </button>
       </header>
       <div className={styles["content"]}>
         <div className={styles["feature"]}>
