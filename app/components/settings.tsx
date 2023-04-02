@@ -53,14 +53,14 @@ export function Settings(props: {
   user?: UserInfo;
 }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [config, updateConfig, resetConfig, clearAllData] = useChatStore(
-    (state) => [
+  const [config, updateConfig, resetConfig, clearAllData, clearSessions] =
+    useChatStore((state) => [
       state.config,
       state.updateConfig,
       state.resetConfig,
       state.clearAllData,
-    ],
-  );
+      state.clearSessions,
+    ]);
 
   const updateStore = useUpdateStore();
   const [checkingUpdate, setCheckingUpdate] = useState(false);
@@ -124,7 +124,7 @@ export function Settings(props: {
           <div className={styles["window-action-button"]}>
             <IconButton
               icon={<ClearIcon />}
-              onClick={clearAllData}
+              onClick={clearSessions}
               bordered
               title={Locale.Settings.Actions.ClearAll}
             />
@@ -281,6 +281,18 @@ export function Settings(props: {
               onChange={(e) =>
                 updateConfig(
                   (config) => (config.tightBorder = e.currentTarget.checked),
+                )
+              }
+            ></input>
+          </SettingItem>
+
+          <SettingItem title={Locale.Settings.SendPreviewBubble}>
+            <input
+              type="checkbox"
+              checked={config.sendPreviewBubble}
+              onChange={(e) =>
+                updateConfig(
+                  (config) => (config.sendPreviewBubble = e.currentTarget.checked),
                 )
               }
             ></input>
