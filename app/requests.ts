@@ -72,23 +72,6 @@ export async function requestChat(messages: Message[]) {
   }
 }
 
-export async function requestUsage() {
-  const res = await requestOpenaiClient(
-    "dashboard/billing/credit_grants?_vercel_no_cache=1",
-  )(null, "GET");
-
-  try {
-    const response = (await res.json()) as {
-      total_available: number;
-      total_granted: number;
-      total_used: number;
-    };
-    return response;
-  } catch (error) {
-    console.error("[Request usage] ", error, res.body);
-  }
-}
-
 export async function requestChatStream(
   messages: Message[],
   options?: {

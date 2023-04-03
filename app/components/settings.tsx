@@ -27,7 +27,6 @@ import { getCurrentVersion } from "../utils";
 import Link from "next/link";
 import { UPDATE_URL } from "../constant";
 import { SearchService, usePromptStore } from "../store/prompt";
-import { requestUsage } from "../requests";
 import { UserInfo } from "../aigc-typings";
 
 function SettingItem(props: {
@@ -75,28 +74,8 @@ export function Settings(props: {
     });
   }
 
-  const [usage, setUsage] = useState<{
-    granted?: number;
-    used?: number;
-  }>();
-  const [loadingUsage, setLoadingUsage] = useState(false);
-  function checkUsage() {
-    setLoadingUsage(true);
-    requestUsage()
-      .then((res) =>
-        setUsage({
-          granted: res?.total_granted,
-          used: res?.total_used,
-        }),
-      )
-      .finally(() => {
-        setLoadingUsage(false);
-      });
-  }
-
   useEffect(() => {
     checkUpdate();
-    checkUsage();
   }, []);
 
   const accessStore = useAccessStore();
@@ -175,31 +154,6 @@ export function Settings(props: {
               </div>
             </Popover>
           </SettingItem>
-
-          {/* <SettingItem
-            title={Locale.Settings.Update.Version(currentId)}
-            subTitle={
-              checkingUpdate
-                ? Locale.Settings.Update.IsChecking
-                : hasNewVersion
-                ? Locale.Settings.Update.FoundUpdate(remoteId ?? "ERROR")
-                : Locale.Settings.Update.IsLatest
-            }
-          >
-            {checkingUpdate ? (
-              <div />
-            ) : hasNewVersion ? (
-              <Link href={UPDATE_URL} target="_blank" className="link">
-                {Locale.Settings.Update.GoToUpdate}
-              </Link>
-            ) : (
-              <IconButton
-                icon={<ResetIcon></ResetIcon>}
-                text={Locale.Settings.Update.CheckUpdate}
-                onClick={() => checkUpdate(true)}
-              />
-            )}
-          </SettingItem> */}
 
           <SettingItem title={Locale.Settings.SendKey}>
             <select
@@ -292,7 +246,8 @@ export function Settings(props: {
               checked={config.sendPreviewBubble}
               onChange={(e) =>
                 updateConfig(
-                  (config) => (config.sendPreviewBubble = e.currentTarget.checked),
+                  (config) =>
+                    (config.sendPreviewBubble = e.currentTarget.checked),
                 )
               }
             ></input>
