@@ -35,15 +35,23 @@ const es: LocaleType = {
     Title: "Todos los mensajes",
     Copy: "Copiar todo",
     Download: "Descargar",
+    MessageFromYou: "Mensaje de ti",
+    MessageFromChatGPT: "Mensaje de ChatGPT",
   },
   Memory: {
     Title: "Historial de memoria",
     EmptyContent: "Aún no hay nada.",
     Copy: "Copiar todo",
+    Send: "Send Memory",
+    Reset: "Reset Session",
+    ResetConfirm:
+      "Resetting will clear the current conversation history and historical memory. Are you sure you want to reset?",
   },
   Home: {
     NewChat: "Nuevo chat",
     DeleteChat: "¿Confirmar eliminación de la conversación seleccionada?",
+    DeleteToast: "Chat Deleted",
+    Revert: "Revert",
   },
   Settings: {
     Account: "Cuenta",
@@ -53,6 +61,12 @@ const es: LocaleType = {
       ClearAll: "Borrar todos los datos",
       ResetAll: "Restablecer todas las configuraciones",
       Close: "Cerrar",
+      ConfirmResetAll: {
+        Confirm: "Are you sure you want to reset all configurations?",
+      },
+      ConfirmClearAll: {
+        Confirm: "Are you sure you want to reset all chat?",
+      },
     },
     Lang: {
       Name: "Language",
@@ -61,6 +75,7 @@ const es: LocaleType = {
         en: "Inglés",
         tw: "繁體中文",
         es: "Español",
+        it: "Italiano",
       },
     },
     Avatar: "Avatar",
@@ -79,7 +94,7 @@ const es: LocaleType = {
     SendKey: "Tecla de envío",
     Theme: "Tema",
     TightBorder: "Borde ajustado",
-    SendPreviewBubble: "Send preview bubble",
+    SendPreviewBubble: "Enviar burbuja de vista previa",
     Prompt: {
       Disable: {
         Title: "Desactivar autocompletado",
@@ -106,11 +121,12 @@ const es: LocaleType = {
     },
     Usage: {
       Title: "Saldo de la cuenta",
-      SubTitle(granted: any, used: any) {
-        return `Total $${granted}, Usado $${used}`;
+      SubTitle(used: any, total: any) {
+        return `Usado $${used}, subscription $${total}`;
       },
       IsChecking: "Comprobando...",
       Check: "Comprobar de nuevo",
+      NoAccess: "Introduzca la clave API para comprobar el saldo",
     },
     AccessCode: {
       Title: "Código de acceso",
@@ -143,7 +159,7 @@ const es: LocaleType = {
       Topic:
         "Por favor, genera un título de cuatro a cinco palabras que resuma nuestra conversación sin ningún inicio, puntuación, comillas, puntos, símbolos o texto adicional. Elimina las comillas que lo envuelven.",
       Summarize:
-        "Resuma nuestra discusión brevemente en 50 caracteres o menos para usarlo como un recordatorio para futuros contextos.",
+        "Resuma nuestra discusión brevemente en 200 caracteres o menos para usarlo como un recordatorio para futuros contextos.",
     },
     ConfirmClearAll:
       "¿Confirmar para borrar todos los datos de chat y configuración?",
@@ -152,6 +168,11 @@ const es: LocaleType = {
     Success: "Copiado al portapapeles",
     Failed:
       "La copia falló, por favor concede permiso para acceder al portapapeles",
+  },
+  Context: {
+    Toast: (x: any) => `With ${x} contextual prompts`,
+    Edit: "Contextual and Memory Prompts",
+    Add: "Add One",
   },
 };
 

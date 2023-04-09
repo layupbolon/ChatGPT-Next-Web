@@ -1,10 +1,6 @@
 import type { ChatRequest, ChatReponse } from "./api/openai/typing";
-import { filterConfig, Message, ModelConfig, useAccessStore } from "./store";
-import Locale from "./locales";
-
-if (!Array.prototype.at) {
-  require("array.prototype.at/auto");
-}
+import { Message, ModelConfig, useAccessStore, useChatStore } from "./store";
+import { showToast } from "./components/ui-lib";
 
 const TIME_OUT_MS = 30000;
 
@@ -24,10 +20,16 @@ const makeRequestParam = (
     sendMessages = sendMessages.filter((m) => m.role !== "assistant");
   }
 
+  const modelConfig = { ...useChatStore.getState().config.modelConfig };
+
+  // @yidadaa: wont send max_tokens, because it is nonsense for Muggles
+  // @ts-expect-error
+  delete modelConfig.max_tokens;
+
   return {
-    model: "gpt-3.5-turbo",
     messages: sendMessages,
     stream: options?.stream,
+    ...modelConfig,
   };
 };
 
@@ -48,7 +50,7 @@ function getHeaders() {
 
 export function requestOpenaiClient(path: string) {
   return (body: any, method = "POST") =>
-    fetch("/api/openai", {
+    fetch("/api/openai?_vercel_no_cache=1", {
       method,
       headers: {
         "Content-Type": "application/json",
@@ -78,7 +80,7 @@ export async function requestChatStream(
     filterBot?: boolean;
     modelConfig?: ModelConfig;
     onMessage: (message: string, done: boolean) => void;
-    onError: (error: Error) => void;
+    onError: (error: Error, statusCode?: number) => void;
     onController?: (controller: AbortController) => void;
   },
 ) {
@@ -86,11 +88,6 @@ export async function requestChatStream(
     stream: true,
     filterBot: options?.filterBot,
   });
-
-  // valid and assign model config
-  if (options?.modelConfig) {
-    Object.assign(req, filterConfig(options.modelConfig));
-  }
 
   console.log("[Request] ", req);
 
@@ -142,11 +139,10 @@ export async function requestChatStream(
       finish();
     } else if (res.status === 401) {
       console.error("Anauthorized");
-      responseText = Locale.Error.Unauthorized;
-      finish();
+      options?.onError(new Error("Anauthorized"), res.status);
     } else {
       console.error("Stream Error", res.body);
-      options?.onError(new Error("Stream Error"));
+      options?.onError(new Error("Stream Error"), res.status);
     }
   } catch (err) {
     console.error("NetWork Error", err);
@@ -174,23 +170,22 @@ export const ControllerPool = {
 
   addController(
     sessionIndex: number,
-    messageIndex: number,
+    messageId: number,
     controller: AbortController,
   ) {
-    const key = this.key(sessionIndex, messageIndex);
+    const key = this.key(sessionIndex, messageId);
     this.controllers[key] = controller;
     return key;
   },
 
-  stop(sessionIndex: number, messageIndex: number) {
-    const key = this.key(sessionIndex, messageIndex);
+  stop(sessionIndex: number, messageId: number) {
+    const key = this.key(sessionIndex, messageId);
     const controller = this.controllers[key];
-    console.log(controller);
     controller?.abort();
   },
 
-  remove(sessionIndex: number, messageIndex: number) {
-    const key = this.key(sessionIndex, messageIndex);
+  remove(sessionIndex: number, messageId: number) {
+    const key = this.key(sessionIndex, messageId);
     delete this.controllers[key];
   },
 

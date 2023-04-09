@@ -20,6 +20,8 @@ const useHasHydrated = () => {
   return hasHydrated;
 };
 
+// import { Home } from "./components/home";
+
 export default function App() {
   const loading = !useHasHydrated();
 
